@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            margin-top: 200px;
+        }
+
+        button {
+            background-color: rgb(103, 142, 226);
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            font-size: 16px;
+            border-radius: 20pc;
+            width: 20pc;
+            height: 4pc;
+            box-shadow: 10px 10px 5px rgb(13, 58, 73);
+            cursor: pointer;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        button:hover {
+            background-color:rgb(235, 64, 64); 
+            box-shadow: 10px 10px 5px rgb(255, 161, 161);
+            animation: blink 1s infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button>Hover to Blink</button>
+    </div>
+</body>
+
+</html>

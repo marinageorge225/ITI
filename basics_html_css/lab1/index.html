@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <h2>Video</h2>
+    <video src="video.mp4" id="video" width="400" controls poster="img.png"></video>
+    <button onclick="playVideo()">Play</button>
+    <button onclick="pauseVideo()">Pause</button>
+    <button onclick="backward()">-5s</button>
+    <button onclick="forward()">+5s</button>
+    <button onclick="Mute()">Mute</button>
+    <button onclick="goToStart()">⏮ Start</button>
+    <button onclick="goToEnd()">⏭ End</button>
+    <button onclick="fullscreenVideo()">Fullscreen</button>
+    <button onclick="downloadVideo()">Download</button>
+
+    <br>
+    <label for="volumeRange">Volume:</label>
+    <input type="range" id="volumeRange" min="0" max="1" step="0.01" value="1">
+
+    <label for="speedRange">Speed:</label>
+    <input type="range" id="speedRange" min="0.25" max="3" step="0.05" value="1">
+    <hr>
+    <!----------------------------------------------------------------------------------->
+    <h2> Color Mixing</h2>
+    <label for="red">Red:</label>
+    <input type="range" id="red" min="0" max="255" value="0">
+    <br>
+    <label for="green">Green:</label>
+    <input type="range" id="green" min="0" max="255" value="0">
+    <br>
+    <label for="blue">Blue:</label>
+    <input type="range" id="blue" min="0" max="255" value="0">
+    <br>
+    <p id="text">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, quos, tempora.
+        Experiment with the sliders to change my color!
+    </p>
+    <!---------------------------------------------------------------------------------->
+    <h2>SVG</h2>
+    <svg width="300" height="300" style="border: 3px solid black;">
+        <polygon points="50,250 250,250 50,50" fill="red" stroke="black"></polygon>
+        <text x="130" y="270" font-size="20" fill="black">a</text>
+        <text x="30" y="150" font-size="20" fill="black">b</text>
+        <text x="150" y="150" font-size="20" fill="black">c</text>
+    </svg>
+    <br>
+    <math>
+        <mi>c</mi>
+        <mo>=</mo>
+        <msqrt>
+            <mrow>
+                <msup>
+                    <mi>a</mi>
+                    <mn>2</mn>
+                </msup>
+                <mo>+</mo>
+                <msup>
+                    <mi>b</mi>
+                    <mn>2</mn>
+                </msup>
+            </mrow>
+        </msqrt>
+    </math>
+    <hr>
+    <!-------------------------------------------------------------------->
+    <h2>Line</h2>
+    <canvas id="lineCanvas" width="300" height="300" style="border:2px solid black;"></canvas>
+    <!------------------------------------------------------->
+    <h2>Circle</h2>
+    <canvas id="circleCanvas" width="400" height="400" style="border:2px solid black;"></canvas>
+    <!---------------------------------------------------------->
+    <script>
+        let video = document.getElementById("video");
+        function playVideo() {
+            video.play();
+        }
+        function pauseVideo() {
+            video.pause();
+        }
+
+        function backward() {
+            video.currentTime = Math.max(0, video.currentTime - 5);
+        }
+        function forward() {
+            video.currentTime = Math.min(video.duration, video.currentTime + 5);
+        }
+        function Mute() {
+            video.muted = !video.muted;
+        }
+        function goToStart() {
+            video.currentTime = 0;
+        }
+        function goToEnd() {
+            if (!isNaN(video.duration)) video.currentTime = video.duration;
+        }
+
+        function fullscreenVideo() {
+            video.requestFullscreen();
+        }
+
+        function downloadVideo() {
+            const link = document.createElement("a");
+            link.href = video.currentSrc;
+            link.download = "video.mp4";
+            link.click();
+        }
+        const volumeRange = document.getElementById("volumeRange");
+        volumeRange.addEventListener("input", () => {
+            video.volume = volumeRange.value;
+        });
+        const speedRange = document.getElementById("speedRange");
+        speedRange.addEventListener("input", () => {
+            video.playbackRate = speedRange.value;
+        });
+
+        //--------------------------------
+
+        const red = document.getElementById("red");
+        const green = document.getElementById("green");
+        const blue = document.getElementById("blue");
+        const text = document.getElementById("text");
+        function updateColor() {
+            const r = red.value;
+            const g = green.value;
+            const b = blue.value;
+            text.style.color = `rgb(${r}, ${g}, ${b})`;
+        }
+        red.addEventListener("input", updateColor);
+        green.addEventListener("input", updateColor);
+        blue.addEventListener("input", updateColor);
+        updateColor()
+
+        // ---------------------------------------------------------
+        const lineCanvas = document.getElementById('lineCanvas');
+        const lineCtx = lineCanvas.getContext('2d');
+        const startX = 0;
+        const startY = 0;
+        const endX = lineCanvas.width;
+        const endY = lineCanvas.height;
+        let progress = 0;
+        const intervalTime = 50;
+
+        function drawLine(progress) {
+            lineCtx.clearRect(0, 0, lineCanvas.width, lineCanvas.height);
+            lineCtx.strokeStyle = 'black';
+            lineCtx.lineWidth = 2;
+            lineCtx.strokeRect(0, 0, lineCanvas.width, lineCanvas.height);
+
+            lineCtx.strokeStyle = 'red';
+            lineCtx.lineWidth = 3;
+            lineCtx.beginPath();
+            lineCtx.moveTo(startX, startY);
+            lineCtx.lineTo(startX + (endX - startX) * progress, startY + (endY - startY) * progress);
+            lineCtx.stroke();
+        }
+
+        const lineInterval = setInterval(() => {
+            progress += 0.02;
+            if (progress >= 1) {
+                drawLine(1);
+                clearInterval(lineInterval);
+                alert("Line animation stopped!");
+                return;
+            }
+            drawLine(progress);
+        }, intervalTime);
+
+        // --------------------------------------------------
+        const circleCanvas = document.getElementById("circleCanvas");
+        const circleCtx = circleCanvas.getContext("2d");
+
+        const centerX = circleCanvas.width / 2;
+        const centerY = circleCanvas.height / 2;
+        const radius = 100;
+
+        let flipSide = false; // false = top, true = bottom
+        let flipCount = 0;
+        const maxFlips = 10;
+
+        function drawHalfCircle() {
+            circleCtx.clearRect(0, 0, circleCanvas.width, circleCanvas.height);
+
+            circleCtx.beginPath();
+            circleCtx.fillStyle = "yellow";
+            circleCtx.strokeStyle = "black";
+            circleCtx.lineWidth = 2;
+
+            if (flipCount >= maxFlips) {
+                circleCtx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            } else if (flipSide) {
+                circleCtx.arc(centerX, centerY, radius, Math.PI, 0); 
+            } else {
+                circleCtx.arc(centerX, centerY, radius, 0, Math.PI);
+            }
+            circleCtx.fill();
+            circleCtx.stroke();
+        }
+        drawHalfCircle();
+        const circleInterval = setInterval(() => {
+            flipSide = !flipSide;
+            flipCount++;
+            drawHalfCircle();
+            if (flipCount >= maxFlips) {
+                clearInterval(circleInterval);
+            }
+        }, 1000);
+    </script>
+</body>
+
+</html>

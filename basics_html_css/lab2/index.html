@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Location on Google Maps</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    iframe {
+      width: 90%;
+      height: 400px;
+      border: 0;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Share Live Location</h2>
+
+  <button onclick="startLocation()">Start Sharing</button>
+  <button onclick="stopLocation()">Stop Sharing</button>
+  <p id="longtude"></p>
+  <p id="latitude"></p>
+
+  <div id="status">Location not started</div>
+  <iframe id="map"
+    src=""
+    allowfullscreen
+    loading="lazy">
+  </iframe>
+
+  <script>
+    let watchId = null;
+    function startLocation() {
+      if (navigator.geolocation) {
+        watchId = navigator.geolocation.watchPosition(showLocation, showError);
+        document.getElementById("status").innerText = "Sharing live location...";
+      } else {
+        document.getElementById("status").innerText =
+          "Geolocation is not supported";
+      }
+    }
+
+    function stopLocation() {
+      if (watchId !== null) {
+        navigator.geolocation.clearWatch(watchId);
+        watchId = null;
+        document.getElementById("status").innerText =
+          "Live location stopped";
+      }
+    }
+
+    function showLocation(position) {
+      let lat = position.coords.latitude;
+      let lon = position.coords.longitude;
+      let mapURL =
+        `https://www.google.com/maps?q=${lat},${lon}&z=15&output=embed`;
+      document.getElementById("map").src = mapURL;
+      document.getElementById("longtude") . innerHTML = lon;
+      document.getElementById("latitude") . innerHTML = lat;
+      
+
+    }
+    function showError(error) {
+      document.getElementById("status").innerText = error.message;
+    }
+  </script>
+
+</body>
+</html>

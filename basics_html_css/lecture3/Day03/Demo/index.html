@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gravitas+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* img {
+        transition: opacity 5s;
+      }
+      img:hover {
+        opacity: 0.2;
+      } */
+      /* otf:open type font - ttf:true type font - woff: web open font format */
+      @font-face {
+        font-family: "osalex";
+        src: url("assets/Rubik_80s_Fade/Rubik80sFade-Regular.ttf");
+      }
+      input:valid {
+        border: 3px dotted rgb(46, 198, 22);
+        outline: none;
+        border-radius: 10px;
+      }
+      input:checked {
+        accent-color: violet;
+      }
+      input:disabled {
+        border: 3px solid green;
+      }
+      input:focus {
+        width: 300px;
+      }
+      .card:has(img)::before {
+        content: "hello from css";
+      }
+      form:has(input:invalid) {
+      }
+      *:not(h1) {
+      }
+      :where(h1, h2, h3) {
+        color: red;
+      }
+      /* .card::first-line{
+        font-size: 50px;
+        color: red;
+      } */
+      .card::selection {
+        background: yellow;
+      }
+      .card {
+        font-family: "osalex";
+        border:3px solid red;
+        min-height: 50px;
+        /* text-align: justify; */
+        word-break: break-all;
+        text-indent: 100px;
+        /* font-family: "Gravitas One", serif;
+        font-weight: 400;
+        font-style: normal; */
+        /* font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif; */
+      }
+      section{
+        border:2px solid green;
+        /* width:150px; */
+        /* height: 150px; */
+        width: 50%;
+        height: 50%;
+        overflow: auto;
+
+      }
+      .trans{
+        transition: all 5s;
+      }
+      .trans:hover{
+        transform:translate(50px,50px) scale(2,2) rotate(180deg) skew(180deg);
+      }
+      /* .img1{
+        position: absolute;
+        left:50px;
+        z-index: 1;
+      }
+      .img2{
+        position: absolute;
+        left:70px;
+        z-index: 5;
+      } */
+      h1{
+        text-shadow: 5px 5px 10px gray;
+      }
+      .box{
+        border:3px solid blue;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        box-shadow: 5px 5px 20px blue ;
+        position: relative;
+        animation-name: myanim;
+        animation-duration: 5s;
+        animation-delay: 2s;
+        animation-direction: alternate;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-out;
+      }
+      @keyframes myanim{
+        /* from{
+
+        }
+        to{
+
+        } */
+         25%{
+            left:100px;
+            background-color: blueviolet;
+         }
+         50%{
+            left:200px;
+            opacity: 0.2;
+         }
+         75%{
+            left:400px;
+            background-color: cadetblue;
+         }
+         100%{
+            left:500px;
+            border:3px dotted green;
+         }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- * Units ==> Absolute / Relative -->
+     <!-- ? Absolute ==> cm , mm , inch , px , pt , pc -->
+      <!-- ? Relative ==> % ,vh , vw , vmin ,vmax , em , rem , ch 0,ex x  -->
+    <input type="text" required pattern="[a-zA-Z]{3}" />
+    <input type="checkbox" name="" id="" />
+    <input type="number" name="" id="" disabled />
+    <div class="card">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quas
+      minima possimus, distinctio nobis, libero autem mollitia culpa beatae
+      maxime quos consectetur, delectus quod assumenda eos animi. Est, minus
+      modi.
+    </div>
+    <div class="card">
+      <img src="./assets/1.gif" alt="" />
+    </div>
+    <div class="card">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa sequi
+      reprehenderit tenetur ab corrupti voluptatum ea, quos fugit praesentium
+      velit nesciunt, ipsam voluptas nobis, similique quasi! A tenetur
+      cupiditate fugit.
+    </div>
+    <h1>header1</h1>
+    <h2>header2</h2>
+    <h3>header3</h3>
+    <section><img src="./assets/overflow.jpg" alt=""></section>
+    <img src="./assets/newProp.jpg" alt="" class="trans" width="300"><br>
+    <img src="./assets/1.gif" alt="" class="img1">
+    <img src="./assets/2.gif" alt="" class="img2">
+    <div class="box"></div>
+  </body>
+</html>

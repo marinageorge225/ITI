@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Saved Students</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    table {
+      margin: auto;
+      border-collapse: collapse;
+      width: 60%;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 10px;
+    }
+
+    th {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Saved Students</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+
+  <br>
+  <button onclick="goBack()">Back to Form</button>
+
+  <script>
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+    let tableBody = document.getElementById("tableBody");
+
+    students.forEach(student => {
+      let row = `
+        <tr>
+          <td>${student.name}</td>
+          <td>${student.age}</td>
+          <td>${student.address}</td>
+        </tr>
+      `;
+      tableBody.innerHTML += row;
+    });
+
+    function goBack() {
+      window.location.href = "index1.html";
+    }
+  </script>
+
+</body>
+</html>

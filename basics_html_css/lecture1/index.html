@@ -1,0 +1,150 @@
+<!DOCTYPE html> <!--//version -->
+<html lang="en"> <!--//root element-->
+
+<head> <!--//data about data-->
+    <meta charset="UTF-8"> <!--//encoding-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--responsive design-->
+    <title>Document</title>
+    <style></style>
+</head>
+
+<body>
+    <h1>New Elements in html5</h1>
+    <meter min="1" max="100" low="25" high="75" optimum="80" value="70">
+    </meter><!--//bydy alwan ka indecation 3la scale mo3yn-->
+    <progress min="1" max="100" value="50"></progress> <!--by2oli ana wslt kam fl 100-->
+    <hr>
+    <h2>Elements in form</h2>
+    <form action="/lecture1/welcome.html">
+        <input type="text" required pattern="[A-Za-z]{5}"><!--required any lazm aktb l text -->
+        <input type="email" name="" id="" required autocomplete="off"> <!--mn nafso by7ot pattern any lazm a7ot @-->
+        <input type="password">
+        <input type="number" min="15" max="50"> <!--l restriction 3l ashom bs-->
+        <input type="time">
+        <input type="date">
+        <input type="datetime-local">
+        <input type="range" min="0" max="50" step="10" value="0">
+        <input type="search">
+        <input type="color">
+        <input type="file">
+        <select>
+            <option>red</option>
+            <option>green</option>
+            <option>blue</option>
+        </select>
+        <input type="text" list="l1">
+        <datalist id="l1">
+            <option>red</option>
+            <option>green</option>
+            <option>blue</option>
+        </datalist>
+        <button>Submit</button>
+    </form>
+    <hr>
+
+    <h2>Semantic Elements</h2>
+    <nav>navbar</nav>
+    <aside>aside</aside>
+    <article>articles</article>
+    <footer>footer</footer>
+    <section>section</section>
+    <figure>img</figure> <!--bt7ot margin by default-->
+    <code>
+        <var>var x =10;</var>
+        console.log(x); <!--bkteb code bs mosh bytfz-->
+    </code>
+    <details>
+        <!--by default byktb kelmet details-->
+        <summary>Colors</summary>
+    </details>
+    <main>main ideas</main>
+    <hr>
+    <h2>Data Attribute</h2>
+    <!--mosh attribute build in dh haga ana aly 3amlha fa ba7ot data- 3shan a2ol an dh ana aly 3mlo-->
+    <div data-os="alex">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quae saepe, quidem unde dolorem
+        placeat magnam molestias voluptatum tenetur amet doloremque illo, quia enim voluptatibus distinctio similique
+        dolorum odio quo?</div>
+    <hr>
+    <h2>MathML</h2>
+    <!--<math> / <mrow> / <mfract> / <msqrt> / <mo> / <mn>-->
+    <math>
+        <mfrac>
+            <mrow>
+                <mi>X</mi>
+                <mo>+</mo> <!--OPERATOR-->
+                <mn>2</mn>
+            </mrow>
+            <mrow>
+                <mn>3</mn>
+                <mo>-</mo>
+                <mi>Y</mi>
+            </mrow>
+        </mfrac>
+    </math>
+<hr>
+<h2>Video</h2>
+<video src="" width="300" poster="" controls id="video"></video>
+<hr>
+<h2>SVG --> Scalable Vectur Graphics</h2>
+<svg width="300" height="300" style="border: 3px solid black;">
+    <rect x="20" y="20" width="100" height="50"
+          style="fill: red; stroke: blue; stroke-width: 3;"></rect>
+
+    <line x1="20" y1="100" x2="200" y2="100"
+          style="stroke: green; stroke-width: 3;"></line>
+
+    <circle cx="150" cy="200" r="30"
+            style="fill: yellow; stroke: black; stroke-width: 2;"></circle>
+
+</svg>
+<hr>
+<h2>Canvas</h2>
+<canvas id="canvas" width="400" height="400" style="border:1px solid black;"></canvas>
+
+
+ <script>
+        //document.querySelector("div[data-os='alex']").style.color = "red"
+        let div = document.querySelector("div")
+        console.log(div)
+        console.log(div.dataset.osTrack = "Alex")
+        //video --> play , paused , close , volume [0,1] , muted , playbackRate[1,16] , current
+        let vid = document.getElementById("video");
+
+        // vid.muted = true;
+        vid.volume = 0 //like muted
+        vid.playbackRate=16;
+
+
+        //canvas
+        let can = document.getElementById("canvas");
+        let ctx = can.getContext("2d");
+        // Line
+        ctx.beginPath();
+        ctx.moveTo(10, 10);
+        ctx.lineTo(150, 150);
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 5;
+        ctx.stroke();
+        ctx.closePath();
+
+        // Rectangle
+        ctx.beginPath();
+        ctx.fillStyle = "green";
+        ctx.fillRect(200, 200, 100, 50);
+        ctx.closePath();
+
+        // Circle
+        ctx.beginPath();
+        ctx.arc(150, 150, 50, 0, 2 * Math.PI);
+        ctx.fillStyle = "yellow";
+        ctx.fill();              
+        ctx.strokeStyle = "black";
+        ctx.stroke();            
+        ctx.closePath();
+
+                
+
+    </script>
+</body>
+
+</html>

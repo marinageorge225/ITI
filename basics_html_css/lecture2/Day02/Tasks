@@ -1,0 +1,3 @@
+1- share live location in the same page [watchPosition / clearWatch]
+2- form --> submit [localStorage "array of obj"] --> display users Table "del"
+3- use 2 web worker " two diff operations" + sharedWorker VS webworker

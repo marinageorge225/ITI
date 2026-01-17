@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!-- ? Embedded -->
+    <style>
+      /*  Selectors in CSS 
+      * Simple : tag , class , id
+      * Combinators :   , > , + , ~
+      * Attribute
+      * pseudoClass: :
+      * pseudoElement :   ::
+      */
+      /* Selector Specificity --> inline > id > class > tag */
+      .header1 {
+        color: orange;
+      }
+      .head {
+        background-color: aqua;
+      }
+      h1 {
+        color: green;
+      }
+      #header2 {
+        background-color: rgb(169, 12, 135);
+      }
+      .parent + p{
+        background-color: blueviolet;
+      }
+      .para{
+        background-color: red;
+      }
+      input[type="number"]{
+        width: 300px;
+      }
+      .inp{
+        width: 500px;
+      }
+      .inp::placeholder{
+        color:blue
+      }
+      .color:hover{
+        color: red;
+      }
+
+
+    </style>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <input type="number" name="" id="" class="inp" placeholder="plz enter your age">
+    <h3 class="color header3">hello</h3>
+    <p class="color p2">hello</p>
+    <!-- ? inline -->
+    <h1 class="header1 head">GeoLocation</h1>
+    <button onclick="getLoc()">getLocation</button>
+    <hr />
+    <h2 id="header2">Web Storage</h2>
+    <input type="text" class="txt1" />
+    <input type="text" class="txt2" />
+    <button id="btn">Submit</button>
+    <hr />
+    <h2>Web Worker</h2>
+    <button id="bg">Change Color</button>
+    <button id="calc">Sum</button>
+    <hr />
+    <h2>MicroData</h2>
+    <div itemscope itemtype="https://schema.org/Organization">
+      <h1 itemprop="name">OS Alex</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium et
+        maiores adipisci nihil numquam amet labore, eaque ad dolor veritatis
+        dicta odio distinctio similique praesentium neque nostrum maxime quasi
+        hic?
+      </p>
+    </div>
+    <hr />
+    <div class="parent">
+      <p>p1</p>
+      <section>
+        <p>p2</p>
+      </section>
+      <p>p3</p>
+    </div>
+    <p class="para">p4</p>
+    <section>s1</section>
+    <p>p5</p>
+    <script>
+      // geolocation
+      let options = {
+        timeout: 0,
+        // enablehighAccuracy:true,
+        // maximumAge:
+      };
+      // watchPosition / clearWatch
+      function getLoc() {
+        navigator.geolocation.getCurrentPosition(showLoc, handleErr, options);
+      }
+      function showLoc(e) {
+        console.log(e);
+        let latitude = e.coords.latitude;
+        let longitude = e.coords.longitude;
+        console.log(latitude, longitude);
+        location.replace(
+          "http://maps.google.com/maps?q=" + latitude + ",+" + longitude
+        );
+      }
+      function handleErr(e) {
+        switch (e.code) {
+          case 1: // permission denied
+            console.log(e.message);
+            break;
+          case 2: // position unavailable
+            console.log(e.message);
+            break;
+          case 3: // timeout = 0
+            console.log(e.message);
+            break;
+          default:
+            console.log("Error");
+        }
+      }
+      // Web Storage
+      let btn = document.getElementById("btn");
+      btn.addEventListener("click", () => {
+        let name = document.querySelector(".txt1").value;
+        let address = document.querySelector(".txt2").value;
+        localStorage.setItem("StudentName", name);
+        sessionStorage.setItem("StudentAddress", address);
+        console.log(localStorage.getItem("StudentName"));
+        let inf = {
+          phone: "12345",
+        };
+        localStorage.setItem("StuPhone", JSON.stringify(inf));
+        console.log(JSON.parse(localStorage.getItem("StuPhone")));
+        // clear , removeItem
+      });
+      // web worker
+      let worker = new Worker("worker.js");
+      let bg = document.getElementById("bg");
+      let calc = document.getElementById("calc");
+
+      calc.onclick = function () {
+        // let sum =0;
+        // for(let i=0;i<1000000000;i++){
+        //     sum+=i
+        // }
+        // alert(sum)
+        worker.postMessage("");
+      };
+
+      worker.onmessage = function (message) {
+        alert(message.data);
+      };
+
+      bg.onclick = function () {
+        if (document.body.style.background !== "green") {
+          document.body.style.background = "green";
+        } else {
+          document.body.style.background = "blue";
+        }
+      };
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris, France",
+          "postalCode": "F-75002",
+          "streetAddress": "38 avenue de l'Opéra"
+        },
+        "email": "secretariat@example.com",
+        "faxNumber": "+33142685301",
+        "iso6523Code": "0009:44306184100039",
+        "iso6523Code": "9957:FR64443061841",
+        "member": [
+          {
+            "@type": "Organization"
+          },
+          {
+            "@type": "Organization"
+          }
+        ],
+        "alumni": [
+          {
+            "@type": "Person",
+            "name": "Jack Dan"
+          },
+          {
+            "@type": "Person",
+            "name": "John Smith"
+          }
+        ],
+        "name": "Google.org (GOOG)",
+        "telephone": "+33 1 42 68 53 00"
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Form</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    input, button {
+      display: block;
+      margin: 10px auto;
+      padding: 8px;
+      width: 250px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Student Form</h2>
+
+  <form id="studentForm">
+    <input type="text" id="name" placeholder="Name" required />
+    <input type="number" id="age" placeholder="Age" required />
+    <input type="text" id="address" placeholder="Address" required />
+
+    <button type="submit">Save</button>
+  </form>
+
+  <button onclick="goToPage()">Go to Page 2</button>
+
+  <script>
+    let form = document.getElementById("studentForm");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      let student = {
+        name: document.getElementById("name").value,
+        age: document.getElementById("age").value,
+        address: document.getElementById("address").value
+      };
+
+      let students = JSON.parse(localStorage.getItem("students")) || [];
+
+      students.push(student);
+
+      localStorage.setItem("students", JSON.stringify(students));
+
+      form.reset();
+      alert("Data saved successfully!");
+    });
+
+    function goToPage() {
+      window.location.href = "page2.html";
+    }
+  </script>
+
+</body>
+</html>

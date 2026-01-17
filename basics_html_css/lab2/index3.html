@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Two Web Workers</title>
+</head>
+
+<body>
+
+    <h2>Two Web Workers</h2>
+
+    <button onclick="calcSum()">Calculate Sum</button>
+    <button onclick="calcFact()">Calculate Factorial</button>
+
+    <p id="result"></p>
+
+    <script>
+        let sumWorker = new Worker("sumWorker.js");
+        let factWorker = new Worker("factWorker.js");
+
+        function calcSum() {
+            sumWorker.postMessage(5);
+        }
+
+        function calcFact() {
+            factWorker.postMessage(5);
+        }
+
+        sumWorker.onmessage = function (e) {
+            document.getElementById("result").innerText = "Sum Result: " + e.data;
+        };
+
+        factWorker.onmessage = function (e) {
+            document.getElementById("result").innerText = "Factorial Result: " + e.data;
+        };
+    </script>
+
+</body>
+
+</html>
